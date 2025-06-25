@@ -1,0 +1,66 @@
+<div
+  class="border border-gray-300 rounded-lg p-4 mb-6 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6"
+>
+  <!-- Image -->
+  <img
+    [src]="order?.purchasedProduct?.imageUrl"
+    alt="{{ order?.purchasedProduct?.name }}"
+    class="w-32 h-32 object-cover rounded"
+  />
+
+  <!-- Product Info -->
+  <div class="flex-1">
+    <h3 class="text-xl font-semibold">
+      {{ order?.purchasedProduct?.name }}
+    </h3>
+    <p class="text-gray-600">
+      {{ order?.purchasedProduct?.description }}
+    </p>
+    <p class="mt-2 text-gray-700" *ngIf="order?.purchasedProduct?.category">
+      <strong>Category:</strong> {{ order?.purchasedProduct?.category?.name }}
+    </p>
+  
+    <p class="text-gray-700">
+      <strong>Quantity:</strong> {{ order?.purchasedProduct?.qty }}
+    </p>
+    <p class="text-gray-700">
+      <strong>Price per unit:</strong>
+      ${{ order?.purchasedProduct?.price?.toFixed(2) }}
+    </p>
+    <p class="text-gray-700 font-semibold">
+      Total Price: ${{ order?.purchasedProduct?.totalPrice?.toFixed(2) }}
+    </p>
+  </div>
+
+  <!-- Payment Info -->
+  <div class="text-gray-700 space-y-1">
+    <p>
+      <strong>Payment ID:</strong> {{ order?.purchasedProduct?.payment?.id }}
+    </p>
+    <p>
+      <strong>Amount:</strong>
+      ${{ order?.purchasedProduct?.payment?.amount?.toFixed(2) }}
+    </p>
+    <p>
+      <strong>Date:</strong>
+      {{ order?.purchasedProduct?.payment?.paymentDate | date : "medium" }}
+    </p>
+    <p>
+      <strong>Method:</strong>
+      {{ order?.purchasedProduct?.payment?.paymentMethod }}
+    </p>
+    <p>
+      <strong>Status:</strong>
+      <span
+        [ngClass]="{
+          'text-green-600':
+            order?.purchasedProduct?.payment?.paymentStatus === 'COMPLETED',
+          'text-red-600':
+            order?.purchasedProduct?.payment?.paymentStatus !== 'COMPLETED'
+        }"
+      >
+        {{ order?.purchasedProduct?.payment?.paymentStatus }}
+      </span>
+    </p>
+  </div>
+</div>

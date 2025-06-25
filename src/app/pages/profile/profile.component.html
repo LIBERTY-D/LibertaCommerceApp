@@ -1,0 +1,252 @@
+<ng-template #modalHolder></ng-template>
+
+<div
+  class="max-w-4xl mx-auto mt-8 bg-white p-8 rounded-lg shadow-md border border-gray-200"
+>
+  <!-- Profile Header with Logout Button -->
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center space-x-6">
+      <div class="w-24 h-24 rounded-full bg-gray-300 overflow-hidden">
+        <img
+          src="assets/blank_prod.jpg"
+          alt="Profile Picture"
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-semibold text-gray-800">
+          {{ loggedInUser && loggedInUser.firstName }}
+        </h2>
+        <p class="text-sm text-gray-500">
+          {{ loggedInUser && loggedInUser.email }}
+        </p>
+        <p class="text-sm text-gray-500 mt-2">
+          Member since: {{ loggedInUser && loggedInUser.createdAt }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Logout Button -->
+    <button
+      type="button"
+      class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+      (click)="logout()">
+      Logout
+    </button>
+  </div>
+
+  <!-- Address Form -->
+  <form [formGroup]="addressForm" (ngSubmit)="createAddress()" class="mt-8">
+    <h3 class="text-lg font-semibold text-gray-800">Address</h3>
+    <p class="text-sm text-gray-500 mb-4">
+      If you plan to place orders, please provide your delivery address below.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Street -->
+      <div>
+        <label for="street" class="block text-gray-700">Street</label>
+        <input
+          id="street"
+          formControlName="street"
+          type="text"
+          class="w-full p-3 rounded-lg border"
+          (blur)="invalidStreet('street')"
+        />
+        <div *ngIf="addressSection['street'].length">
+          <p *ngFor="let err of addressSection['street']" class="text-red-500 text-sm">{{ err }}</p>
+        </div>
+      </div>
+
+      <!-- City -->
+      <div>
+        <label for="city" class="block text-gray-700">City</label>
+        <input
+          id="city"
+          formControlName="city"
+          type="text"
+          class="w-full p-3 rounded-lg border"
+          (blur)="invalidCity('city')"
+        />
+        <div *ngIf="addressSection['city'].length">
+          <p *ngFor="let err of addressSection['city']" class="text-red-500 text-sm">{{ err }}</p>
+        </div>
+      </div>
+
+      <!-- State -->
+      <div>
+        <label for="state" class="block text-gray-700">State</label>
+        <input
+          id="state"
+          formControlName="state"
+          type="text"
+          class="w-full p-3 rounded-lg border"
+          (blur)="invalidState('state')"
+        />
+        <div *ngIf="addressSection['state'].length">
+          <p *ngFor="let err of addressSection['state']" class="text-red-500 text-sm">{{ err }}</p>
+        </div>
+      </div>
+
+      <!-- Postal Code -->
+      <div>
+        <label for="postalCode" class="block text-gray-700">Postal Code</label>
+        <input
+          id="postalCode"
+          formControlName="postalCode"
+          type="text"
+          class="w-full p-3 rounded-lg border"
+          (blur)="invalidPostalCode('postalCode')"
+        />
+        <div *ngIf="addressSection['postalCode'].length">
+          <p *ngFor="let err of addressSection['postalCode']" class="text-red-500 text-sm">{{ err }}</p>
+        </div>
+      </div>
+
+      <!-- Country -->
+      <div class="md:col-span-2">
+        <label for="country" class="block text-gray-700">Country</label>
+        <input
+          id="country"
+          formControlName="country"
+          type="text"
+          class="w-full p-3 rounded-lg border"
+          (blur)="invalidCountry('country')"
+        />
+        <div *ngIf="addressSection['country'].length">
+          <p *ngFor="let err of addressSection['country']" class="text-red-500 text-sm">{{ err }}</p>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+      [disabled]="addressForm.invalid"
+    >
+      Update Address
+    </button>
+  </form>
+
+  <!-- Account Settings Form -->
+  <form [formGroup]="accountForm" (ngSubmit)="updateAccount()" class="mt-8 space-y-4">
+    <h3 class="text-lg font-semibold text-gray-800">Account Settings</h3>
+
+    <!-- First Name -->
+    <div>
+      <label for="firstName" class="block text-gray-700">First Name</label>
+      <input
+        id="firstName"
+        formControlName="firstName"
+        type="text"
+        class="w-full p-3 rounded-lg border"
+        (blur)="invalidFirstName('firstName')"
+      />
+      <div *ngIf="accountSection['firstName'].length">
+        <p *ngFor="let err of accountSection['firstName']" class="text-red-500 text-sm">{{ err }}</p>
+      </div>
+    </div>
+
+    <!-- Last Name -->
+    <div>
+      <label for="lastName" class="block text-gray-700">Last Name</label>
+      <input
+        id="lastName"
+        formControlName="lastName"
+        type="text"
+        class="w-full p-3 rounded-lg border"
+        (blur)="invalidLastName('lastName')"
+      />
+      <div *ngIf="accountSection['lastName'].length">
+        <p *ngFor="let err of accountSection['lastName']" class="text-red-500 text-sm">{{ err }}</p>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="email" class="block text-gray-700">Email Address</label>
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        class="w-full p-3 rounded-lg border"
+        (blur)="invalidEmail('email')"
+      />
+      <div *ngIf="accountSection['email'].length">
+        <p *ngFor="let err of accountSection['email']" class="text-red-500 text-sm">{{ err }}</p>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full mt-4 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+      [disabled]="accountForm.invalid"
+    >
+      Update Account Info
+    </button>
+  </form>
+
+  <!-- Password Form -->
+  <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()" class="mt-8 space-y-4">
+    <h3 class="text-lg font-semibold text-gray-800">Change Password</h3>
+    <p class="text-sm text-gray-500 mb-4">
+      Choose a strong password. Must be at least 6 characters and contain a mix
+      of letters and numbers.
+    </p>
+
+    <!-- New Password -->
+    <div>
+      <label for="password" class="block text-gray-700">New Password</label>
+      <input
+        id="password"
+        formControlName="password"
+        type="password"
+        class="w-full p-3 rounded-lg border"
+        (blur)="invalidPassword('password')"
+      />
+      <div *ngIf="passwordSection['password'].length">
+        <p *ngFor="let err of passwordSection['password']" class="text-red-500 text-sm">{{ err }}</p>
+      </div>
+    </div>
+
+    <!-- Confirm Password -->
+    <div>
+      <label for="confirmPassword" class="block text-gray-700">Confirm Password</label>
+      <input
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        type="password"
+        class="w-full p-3 rounded-lg border"
+        (blur)="invalidConfirmPassword('confirmPassword')"
+      />
+      <div *ngIf="passwordSection['confirmPassword'].length">
+        <p *ngFor="let err of passwordSection['confirmPassword']" class="text-red-500 text-sm">{{ err }}</p>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="w-full mt-4 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition"
+      [disabled]="passwordForm.invalid"
+    >
+      Update Password
+    </button>
+  </form>
+
+  <!-- Delete Account Section -->
+  <div class="mt-8 border-t border-gray-200 pt-6">
+    <h3 class="text-lg font-semibold text-gray-800">Delete Account</h3>
+    <p class="text-sm text-gray-500 mb-4">
+      Once you delete your account, there is no going back. Please be certain.
+    </p>
+    <button
+      type="button"
+      [disabled]="loggedInUser?.roles?.includes('ROLE_ADMIN')"
+      class="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+      (click)="confirmDeleteAccount()"
+    >
+      Delete My Account
+    </button>
+  </div>
+</div>

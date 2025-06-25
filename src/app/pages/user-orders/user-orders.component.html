@@ -1,0 +1,15 @@
+<div class="bg-white p-6 rounded-lg shadow-md mt-10">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">My Orders</h2>
+
+  <div *ngIf="userOrders &&userOrders.length > 0; else noOrders">
+    <app-order-card
+      *ngFor="let order of userOrders"
+      [order]="order"
+      class="mb-4"
+    ></app-order-card>
+  </div>
+
+  <ng-template #noOrders>
+    <p class="text-gray-600">You have no orders yet.</p>
+  </ng-template>
+</div>

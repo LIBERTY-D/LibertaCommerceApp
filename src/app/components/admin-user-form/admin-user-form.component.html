@@ -1,0 +1,172 @@
+<ng-template #modalHolder></ng-template>
+<div class="bg-white p-6 rounded-lg shadow-md mb-8">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Manage Users</h2>
+  <form class="space-y-6" (ngSubmit)="onSubmitUserForm()" #userForm="ngForm">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- User ID -->
+      <div>
+        <label for="userId" class="text-gray-700">User ID(Only for updates)</label>
+        <input
+          type="text"
+          id="userId"
+          placeholder="User ID"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="user.id"
+          name="id"
+          
+        />
+      </div>
+
+      <!-- First Name -->
+      <div>
+        <label for="firstName" class="text-gray-700">First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          placeholder="First Name"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="user.firstName"
+          name="firstName"
+          required
+          #firstName="ngModel"
+        />
+        <div *ngIf="firstName.invalid && firstName.touched" class="text-red-500 text-sm">First name is required.</div>
+      </div>
+
+      <!-- Last Name -->
+      <div>
+        <label for="lastName" class="text-gray-700">Last Name</label>
+        <input
+          type="text"
+          id="lastName"
+          placeholder="Last Name"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="user.lastName"
+          name="lastName"
+          required
+          #lastName="ngModel"
+        />
+        <div *ngIf="lastName.invalid && lastName.touched" class="text-red-500 text-sm">Last name is required.</div>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email" class="text-gray-700">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="user.email"
+          name="email"
+          required
+          email
+          #email="ngModel"
+        />
+        <div *ngIf="email.invalid && email.touched" class="text-red-500 text-sm">Valid email is required.</div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="text-gray-700">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="user.password"
+          name="password"
+          required
+          minlength="6"
+          #password="ngModel"
+        />
+        <div *ngIf="password.invalid && password.touched" class="text-red-500 text-sm">
+          Password must be at least 6 characters.
+        </div>
+      </div>
+
+      <!-- Role Dropdown -->
+      <div>
+        <label for="roles" class="text-gray-700">Role</label>
+        <select
+          id="roles"
+          [(ngModel)]="user.role"
+          name="role"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          required
+          #role="ngModel"
+        >
+          <option *ngFor="let role of availableRoles" [value]="role">{{ role }}</option>
+        </select>
+        <div *ngIf="role.invalid && role.touched" class="text-red-500 text-sm">Role is required.</div>
+      </div>
+
+      <!-- Enabled Checkbox -->
+      <div class="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          id="enabled"
+          [(ngModel)]="user.enabled"
+          name="enabled"
+          class="h-5 w-5 text-green-600"
+        />
+        <label for="enabled" class="text-gray-700">Enabled</label>
+      </div>
+
+      <!-- Non Locked Checkbox -->
+      <div class="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          id="isNonLocked"
+          [(ngModel)]="user.nonLocked"
+          name="isNonLocked"
+          class="h-5 w-5 text-green-600"
+        />
+        <label for="isNonLocked" class="text-gray-700">Account Non-Locked</label>
+      </div>
+
+      <!-- Profile Picture -->
+      <div class="col-span-2">
+        <label for="profile-picture" class="text-gray-700">Profile Picture</label>
+        <input
+          type="file"
+          id="profile-picture"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+        />
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="userForm.invalid"
+      class="w-full bg-green-500 text-white py-3 rounded-lg shadow-md hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      Add / Update User
+    </button>
+  </form>
+  <!-- 🔴 Delete User Section -->
+  <div class="mt-8 border-t pt-6">
+    <h3 class="text-lg font-semibold text-red-600 mb-2">Delete User</h3>
+    <p class="text-sm text-gray-600 mb-4">
+      Enter the user ID of the user you want to permanently delete.
+    </p>
+
+    <form (ngSubmit)="onDeleteUser()" #deleteForm="ngForm" class="space-y-4">
+      <input
+        type="text"
+        name="deleteUserId"
+        [(ngModel)]="deleteUserId"
+        placeholder="Enter User ID"
+        class="w-full p-3 border border-red-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+        required
+      />
+
+      <button 
+        type="submit"
+        [disabled]="!deleteUserId"
+        class="w-full bg-red-500 text-white py-3 rounded-lg shadow-md hover:bg-red-600 transition">
+        Delete User
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<!-- About Us Section -->
+<div
+  class="max-w-4xl mx-auto mt-8 bg-white p-8 rounded-lg shadow-md border border-gray-200"
+>
+  <h2 class="text-3xl font-semibold text-gray-800">About Us</h2>
+  <p class="text-gray-600 mt-4">
+    We are a dedicated team passionate about providing top-quality services and
+    products to our customers. Our mission is to bring innovative solutions that
+    make a difference in the lives of our users.
+  </p>
+
+  <div class="mt-8 space-y-6">
+    <h3 class="text-2xl font-semibold text-gray-800">Our Values</h3>
+    <ul class="list-disc list-inside text-gray-600">
+      <li>Integrity and transparency</li>
+      <li>Commitment to excellence</li>
+      <li>Innovation and creativity</li>
+      <li>Customer-centric approach</li>
+    </ul>
+
+    <h3 class="text-2xl font-semibold text-gray-800 mt-8">Our Team</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
+      <app-about-card [about]="data" />
+    </div>
+  </div>
+</div>

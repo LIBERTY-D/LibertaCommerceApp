@@ -1,0 +1,10 @@
+
+    <div class="max-w-7xl mx-auto px-6" id="reviews">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">User Reviews</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <app-reviews-card *ngFor="let review of fetchReviews()" [review]="review"/>
+        </div>
+    </div>
+

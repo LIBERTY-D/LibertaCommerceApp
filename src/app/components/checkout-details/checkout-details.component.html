@@ -1,0 +1,95 @@
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="space-y-6 bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto">
+  <!-- Header -->
+  <div class="mb-4">
+    <h2 class="text-xl font-semibold text-gray-800">Shipping & Contact Information</h2>
+    <p class="text-sm text-gray-600 mt-1">
+      Please update your <strong>shipping address</strong> and <strong>contact details</strong> before continuing to payment.
+    </p>
+  </div>
+
+  <!-- Contact Information -->
+  <div formGroupName="contact" class="grid md:grid-cols-2 gap-4">
+    <!-- First Name -->
+    <div>
+      <label class="block text-gray-700 font-medium">First Name</label>
+      <input type="text" formControlName="firstName" placeholder="John" class="input" />
+      <div *ngIf="contact.get('firstName')?.touched && contact.get('firstName')?.invalid" class="text-red-600 text-sm mt-1">
+        First name is required (min 2 characters).
+      </div>
+    </div>
+
+    <!-- Last Name -->
+    <div>
+      <label class="block text-gray-700 font-medium">Last Name</label>
+      <input type="text" formControlName="lastName" placeholder="Doe" class="input" />
+      <div *ngIf="contact.get('lastName')?.touched && contact.get('lastName')?.invalid" class="text-red-600 text-sm mt-1">
+        Last name is required (min 2 characters).
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div>
+      <label class="block text-gray-700 font-medium">Phone</label>
+      <input type="tel" formControlName="phone" placeholder="08012345678" class="input" />
+      <div *ngIf="contact.get('phone')?.touched && contact.get('phone')?.invalid" class="text-red-600 text-sm mt-1">
+        Valid phone number is required (10–15 digits).
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label class="block text-gray-700 font-medium">Email</label>
+      <input type="email" formControlName="email" placeholder="you@example.com" class="input" />
+      <div *ngIf="contact.get('email')?.touched && contact.get('email')?.invalid" class="text-red-600 text-sm mt-1">
+        Valid email address is required.
+      </div>
+    </div>
+  </div>
+
+  <!-- Shipping Address -->
+  <div formGroupName="address" class="grid md:grid-cols-2 gap-4 pt-4 border-t">
+    <div>
+      <label class="block text-gray-700 font-medium">Street</label>
+      <input type="text" formControlName="street" placeholder="123 Main St" class="input" />
+      <div *ngIf="address.get('street')?.touched && address.get('street')?.invalid" class="text-red-600 text-sm mt-1">
+        Street address is required.
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-gray-700 font-medium">City</label>
+      <input type="text" formControlName="city" placeholder="City" class="input" />
+      <div *ngIf="address.get('city')?.touched && address.get('city')?.invalid" class="text-red-600 text-sm mt-1">
+        City is required.
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-gray-700 font-medium">State</label>
+      <input type="text" formControlName="state" placeholder="State" class="input" />
+      <div *ngIf="address.get('state')?.touched && address.get('state')?.invalid" class="text-red-600 text-sm mt-1">
+        State is required.
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-gray-700 font-medium">Country</label>
+      <input type="text" formControlName="country" placeholder="Country" class="input" />
+      <div *ngIf="address.get('country')?.touched && address.get('country')?.invalid" class="text-red-600 text-sm mt-1">
+        Country is required.
+      </div>
+    </div>
+
+    <div class="md:col-span-2">
+      <label class="block text-gray-700 font-medium">Postal Code</label>
+      <input type="text" formControlName="postalCode" placeholder="123456" class="input" />
+      <div *ngIf="address.get('postalCode')?.touched && address.get('postalCode')?.invalid" class="text-red-600 text-sm mt-1">
+        Valid postal code is required.
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
+    Update & Continue to Payment
+  </button>
+</form>

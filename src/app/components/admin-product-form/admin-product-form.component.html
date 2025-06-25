@@ -1,0 +1,208 @@
+<ng-template #modalHolder></ng-template>
+<div class="bg-white p-6 rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Manage Products</h2>
+
+  <!-- Product Form -->
+  <form
+    class="space-y-6"
+    (ngSubmit)="onSubmitProductForm()"
+    #productForm="ngForm"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Product ID -->
+      <div>
+        <label for="productId" class="text-gray-700">Product ID (Only for Updates)</label>
+        <input
+          type="text"
+          id="productId"
+          placeholder="Product ID"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="product.id"
+          name="productId"
+        />
+      </div>
+
+      <!-- Product Name -->
+      <div>
+        <label for="productName" class="text-gray-700">Product Name</label>
+        <input
+          type="text"
+          id="productName"
+          placeholder="Product Name"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="product.name"
+          name="productName"
+          required
+          #productName="ngModel"
+        />
+        <div
+          *ngIf="productName.invalid && productName.touched"
+          class="text-red-500 text-sm"
+        >
+          Product Name is required.
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div>
+        <label for="price" class="text-gray-700">Price ($)</label>
+        <input
+          type="number"
+          id="price"
+          step="0.01"
+          placeholder="Price"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="product.price"
+          name="price"
+          required
+          min="0.01"
+          #price="ngModel"
+        />
+        <div
+          *ngIf="price.invalid && price.touched"
+          class="text-red-500 text-sm"
+        >
+          <div *ngIf="price.errors?.['required']">Price is required.</div>
+          <div *ngIf="price.errors?.['min']">Price must be greater than 0.</div>
+        </div>
+      </div>
+      <!-- qty -->
+      <div>
+        <label for="price" class="text-gray-700">Quantity</label>
+        <input
+          type="number"
+          id="quantity"
+          step="1"
+          placeholder="Price"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="product.quantity"
+          name="price"
+          required
+          #quantity="ngModel"
+        />
+        <div
+          *ngIf="quantity.invalid && quantity.touched"
+          class="text-red-500 text-sm"
+        >
+          <div *ngIf="quantity.errors?.['required']">Quantity is required.</div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label for="description" class="text-gray-700">Description</label>
+        <textarea
+          id="description"
+          placeholder="Product Description"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="product.description"
+          name="description"
+          required
+          #description="ngModel"
+        ></textarea>
+        <div
+          *ngIf="description.invalid && description.touched"
+          class="text-red-500 text-sm"
+        >
+          Description is required.
+        </div>
+      </div>
+      <!-- Role Dropdown -->
+      <div>
+        <label for="roles" class="text-gray-700">category Id</label>
+        <input
+          id="categoryId"
+          [(ngModel)]="product.categoryId"
+          name="categoryId"
+          type="number"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          required
+          step="1"
+          #catego="ngModel"
+        />
+
+        <div
+          *ngIf="catego.invalid && catego.touched"
+          class="text-red-500 text-sm"
+        >
+          categoryId is required.
+        </div>
+      </div>
+
+      <!-- Product Image -->
+      <div class="col-span-2">
+        <label for="productImage" class="text-gray-700">Product Image</label>
+        <input
+          type="file"
+          id="productImage"
+          accept="image/*"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          (change)="onFileSelected($event)"
+        />
+        <div *ngIf="imagePreview" class="mt-4">
+          <p class="text-gray-700 mb-2">Image Preview:</p>
+          <img
+            [src]="imagePreview"
+            alt="Product Image Preview"
+            class="max-w-full max-h-64 rounded-lg border border-gray-300"
+          />
+        </div>
+      </div>
+
+      <!-- User ID -->
+      <!-- <div>
+        <label for="userId" class="text-gray-700">User ID (Owner)</label>
+        <input
+          type="number"
+          id="userId"
+          placeholder="User ID"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+          [(ngModel)]="product.userId"
+          name="userId"
+          required
+          min="1"
+          #userId="ngModel"
+        />
+        <div *ngIf="userId.invalid && userId.touched" class="text-red-500 text-sm">
+          <div *ngIf="userId.errors?.['required']">User ID is required.</div>
+          <div *ngIf="userId.errors?.['min']">User ID must be greater than 0.</div>
+        </div>
+      </div> -->
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="productForm.invalid"
+      class="w-full bg-green-500 text-white py-3 rounded-lg shadow-md hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {{ product.id ? "Update Product" : "Add Product" }}
+    </button>
+  </form>
+
+  <!-- 🔴 Delete Product Section -->
+  <div class="mt-8 border-t pt-6">
+    <h3 class="text-lg font-semibold text-red-600 mb-2">Delete Product</h3>
+    <p class="text-sm text-gray-600 mb-4">
+      Enter the product ID of the item you want to permanently delete.
+    </p>
+
+    <form (ngSubmit)="onDeleteProduct()" #deleteForm="ngForm" class="space-y-4">
+      <input
+        type="text"
+        name="deleteProductId"
+        [(ngModel)]="deleteProductId"
+        placeholder="Enter Product ID"
+        class="w-full p-3 border border-red-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+        required
+      />
+
+      <button
+        type="submit"
+        [disabled]="!deleteProductId"
+        class="w-full bg-red-500 text-white py-3 rounded-lg shadow-md hover:bg-red-600 transition"
+      >
+        Delete Product
+      </button>
+    </form>
+  </div>
+</div>

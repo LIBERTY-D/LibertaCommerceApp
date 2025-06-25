@@ -1,0 +1,147 @@
+<!-- Login Form -->
+<div
+  class="max-w-md mx-auto mt-8 bg-white p-8 rounded-lg shadow-md border border-gray-200"
+>
+  <h2 class="text-2xl font-semibold text-gray-800">Sign Up</h2>
+  <p class="text-gray-500 mb-6">Create an Account With Us.</p>
+
+  <form [formGroup]="signUpFormGroup" (ngSubmit)="createUserAccount()">
+    <!--First Name -->
+    <div class="mb-4">
+      <label for="firstName" class="block text-gray-700 font-medium"
+        >First Name</label
+      >
+      <input
+        type="text"
+        id="firstName"
+        class="primaryInputForm"
+        placeholder="John"
+        formControlName="firstName"
+        (blur)="invalidFirstName('firstName')"
+      />
+
+      <div *ngIf="signUpErrors['firstName'].length">
+        <p
+          *ngFor="let err of signUpErrors['firstName']"
+          class="text-red-500 text-sm"
+        >
+          {{ err }}
+        </p>
+      </div>
+    </div>
+    <!--Last Name -->
+    <div class="mb-4">
+      <label for="lastName" class="block text-gray-700 font-medium"
+        >Last Name</label
+      >
+      <input
+        type="text"
+        id="lastName"
+        class="primaryInputForm"
+        placeholder="doe"
+        formControlName="lastName"
+        (blur)="invalidLastName('lastName')"
+      />
+      <div *ngIf="signUpErrors['lastName'].length">
+        <p
+          *ngFor="let err of signUpErrors['lastName']"
+          class="text-red-500 text-sm"
+        >
+          {{ err }}
+        </p>
+      </div>
+    </div>
+    <!-- Email -->
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 font-medium"
+        >Email Address</label
+      >
+      <input
+        type="email"
+        id="email"
+        class="primaryInputForm"
+        placeholder="youremail@example.com"
+        formControlName="email"
+        (blur)="invalidEmail('email')"
+      />
+      <div *ngIf="signUpErrors['email'].length">
+        <p
+          *ngFor="let err of signUpErrors['email']"
+          class="text-red-500 text-sm"
+        >
+          {{ err }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 font-medium"
+        >Password</label
+      >
+      <input
+        type="password"
+        id="password"
+        class="primaryInputForm"
+        placeholder="******"
+        formControlName="password"
+        (blur)="invalidPassword('password')"
+      />
+      <div *ngIf="signUpErrors['password'].length">
+        <p
+          *ngFor="let err of signUpErrors['password']"
+          class="text-red-500 text-sm"
+        >
+          {{ err }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 font-medium"
+        >Confirm Password</label
+      >
+      <input
+        type="password"
+        id="confirmPassword"
+        class="primaryInputForm"
+        placeholder="******"
+        formControlName="confirmPassword"
+        (blur)="invalidConfirmPassword('confirmPassword')"
+      />
+      <div *ngIf="signUpErrors['confirmPassword'].length">
+        <p
+          *ngFor="let err of signUpErrors['confirmPassword']"
+          class="text-red-500 text-sm"
+        >
+          {{ err }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Sign Button -->
+    <div class="mt-6">
+      <button
+        type="submit"
+        class="w-full primaryBg text-white px-4 py-2 rounded-lg shadow hover:primaryBg transition"
+        [disabled]="signUpFormGroup.invalid"
+      >
+        signup
+      </button>
+    </div>
+
+    <!-- Register Link -->
+    <div class="text-center mt-4">
+      <p class="text-gray-600">
+        have an account?
+        <button
+          class="primaryText hover:primaryText"
+          (click)="goToSignInPage()"
+        >
+          Sign In
+        </button>
+      </p>
+    </div>
+  </form>
+</div>

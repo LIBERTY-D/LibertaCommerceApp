@@ -1,0 +1,60 @@
+<div class="grid md:grid-cols-2 gap-8">
+  <div class="flex justify-center">
+    <img
+      [src]="
+        product?.files?.length == 0 ? '/assets/blank_prod.jpg' : getImageSrc()
+      "
+      alt="Product Image"
+      class="w-full md:w-72 rounded-lg shadow-lg"
+    />
+  </div>
+
+  <div class="text-center md:text-left">
+    <h1 class="text-3xl font-bold mb-4">{{ product?.name }}</h1>
+    <p class="text-gray-400 mb-4">
+      {{ product?.description }}
+    </p>
+
+    <div class="text-xl font-semibold mb-4">
+      <span class="text-2xl">Price: </span><span>${{ product?.price }}</span>
+    </div>
+
+    <div class="mb-4">
+      <button
+        (click)="addProductToCart(product)"
+        class="bg-green-600 hover:bg-green-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-200"
+      >
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="mt-6">
+      <a
+        routerLink="/home"
+        class="cursor-pointer flex items-center text-blue-500 hover:text-blue-400"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 mr-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5"></path>
+          <path d="M12 5l-7 7 7 7"></path>
+        </svg>
+        Back to Home
+      </a>
+    </div>
+  </div>
+</div>
+
+<ng-template #category>
+  <div class="mb-4">
+    <span class="font-semibold text-gray-400">Category: </span>
+    <span>Electronics</span>
+  </div>
+</ng-template>

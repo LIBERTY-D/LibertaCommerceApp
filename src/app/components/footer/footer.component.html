@@ -1,0 +1,82 @@
+<!-- Footer -->
+<footer
+  class="bg-white p-8 shadow-md rounded-t-lg border-t border-gray-200 mt-16"
+>
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- About Section -->
+    <div>
+      <h3 class="text-2xl font-semibold text-gray-800">About Us</h3>
+      <p class="text-gray-600 mt-4">
+        We are dedicated to providing top-notch services and products. Our focus
+        is on quality, innovation, and customer satisfaction.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-2xl font-semibold text-gray-800">Quick Links</h3>
+      <ul class="space-y-4 mt-4">
+        <li>
+          <a
+            routerLink="/"
+            routerLinkActive="primaryLinkActive"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="text-gray-600 hover:text-green-600 transition"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="about"
+            routerLinkActive="primaryLinkActive"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="text-gray-600 hover:text-green-600 transition"
+            >About</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="services"
+            routerLinkActive="primaryLinkActive"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="text-gray-600 hover:text-green-600 transition"
+            >Services</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="contact"
+            routerLinkActive="primaryLinkActive"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="text-gray-600 hover:text-green-600 transition"
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <!-- Contact Section -->
+    <div>
+      <h3 class="text-2xl font-semibold text-gray-800">Contact</h3>
+      <p class="text-gray-600 mt-4">Reach us at:</p>
+      <p
+        class="text-gray-600"
+        [textContent]="'Email: contactmyliberta@gmail.com'"
+      ></p>
+      <p class="text-gray-600">Phone: +48 723 708 283</p>
+      <!-- <div class="mt-4">
+                <a href="#" class="text-gray-600 hover:text-green-600 transition">
+                    <svg class="w-6 h-6 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 2L11 13l-4-4 9-9z"></path>
+                    </svg>
+                    Facebook
+                </a>
+            </div> -->
+    </div>
+  </div>
+
+  <!-- Bottom Section -->
+  <div class="mt-8 border-t border-gray-200 pt-4 text-center text-gray-600">
+    <p>&copy; 2025 Liberta. All rights reserved.</p>
+  </div>
+</footer>

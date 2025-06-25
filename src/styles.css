@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.primaryText{
+    @apply text-green-600;
+}
+.primaryText500{
+    @apply text-green-500;
+}
+.primaryBg{
+    @apply bg-green-500;
+}
+.primaryInputForm{
+ @apply w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none;
+}
+.primaryLinkStyle{
+    @apply text-gray-800 hover:text-green-600 transition
+}
+
+.primaryLinkActive{
+    @apply primaryBg p-2 rounded-sm  text-white !important;
+}

@@ -1,0 +1,131 @@
+<nav class="bg-white p-4 shadow-md rounded-lg border border-gray-200">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <!-- Logo -->
+    <app-logo></app-logo>
+
+    <!-- Desktop Navigation Links -->
+    <div class="hidden md:flex space-x-6 items-center">
+      <app-link linkPath="home">Home</app-link>
+      <a
+        routerLink="/"
+        fragment="reviews"
+        class="primaryLinkStyle cursor-pointer"
+        >Reviews</a
+      >
+      <app-link linkPath="about">About</app-link>
+      <app-link linkPath="services">Services</app-link>
+      <app-link linkPath="contact">Contact</app-link>
+      <app-link *ngIf="loggedInUser" linkPath="orders">My Orders</app-link>
+    </div>
+
+    <!-- Account + Cart (Desktop Only) -->
+    <div class="hidden md:flex space-x-6 items-center">
+      <!-- Auth Links -->
+      <ng-container *ngIf="!loggedInUser">
+        <app-link linkPath="login">Sign In</app-link>
+        <app-link linkPath="signup">Sign Up</app-link>
+        <button
+          (click)="loginAsDemoUser()"
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+        >
+          Demo Login
+        </button>
+      </ng-container>
+      <ng-container *ngIf="loggedInUser">
+        <app-link linkPath="profile">My Profile</app-link>
+
+        <app-link
+          *ngIf="loggedInUser.roles.includes('ROLE_ADMIN')"
+          linkPath="dashboard"
+          >Dashboard</app-link
+        >
+      </ng-container>
+
+      <!-- Cart Icon -->
+      <div class="relative">
+        <button
+          (click)="onCartClick()"
+          class="text-gray-800 hover:text-gray-600 focus:outline-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="9" cy="21" r="1" />
+            <circle cx="20" cy="21" r="1" />
+            <path
+              d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"
+            />
+          </svg>
+        </button>
+        <span
+          *ngIf="cartItemCount > 0"
+          class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full px-1.5 min-w-[1rem] text-center"
+        >
+          {{ cartItemCount }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Mobile Hamburger Button -->
+    <div class="md:hidden flex items-center">
+      <button
+        (click)="onShowNavOnMobilePhones()"
+        class="text-gray-800 focus:outline-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 12h18M3 6h18M3 18h18"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu -->
+  <div
+    *ngIf="!showNavOnMobilePhones"
+    class="md:hidden flex flex-col gap-4 bg-gray-100 rounded-lg shadow-lg p-4 mt-4 items-center"
+  >
+    <app-link linkPath="home">Home</app-link>
+    <app-link linkPath="about">About</app-link>
+    <app-link linkPath="services">Services</app-link>
+    <app-link linkPath="contact">Contact</app-link>
+    <app-link *ngIf="loggedInUser" linkPath="orders">My Orders</app-link>
+    <app-link linkPath="cart">Cart</app-link>
+
+    <!-- Auth Links -->
+    <ng-container *ngIf="!loggedInUser">
+      <app-link linkPath="login">Sign In</app-link>
+      <app-link linkPath="signup">Sign Up</app-link>
+      <button
+        (click)="loginAsDemoUser()"
+        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+      >
+        Demo Login
+      </button>
+    </ng-container>
+    <ng-container *ngIf="loggedInUser">
+      <app-link linkPath="profile">My Profile</app-link>
+
+      <app-link
+        *ngIf="loggedInUser.roles.includes('ROLE_ADMIN')"
+        linkPath="dashboard"
+        >Dashboard</app-link
+      >
+    </ng-container>
+  </div>
+</nav>

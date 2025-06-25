@@ -1,0 +1,68 @@
+<!-- Contact Form Section -->
+<div class="max-w-4xl mx-auto mt-8 bg-white p-8 rounded-lg shadow-md border border-gray-200">
+  <h2 class="text-3xl font-semibold text-gray-800">Contact Us</h2>
+  <p class="text-gray-600 mt-4">
+    We’d love to hear from you! Please reach out with any questions, comments, or feedback.
+  </p>
+
+  <form class="mt-8 space-y-6" [formGroup]="contactForm" (ngSubmit)="submitContactForm()">
+    <!-- Name -->
+    <div>
+      <label for="name" class="block text-gray-700 font-medium">Full Name</label>
+      <input
+        type="text"
+        id="name"
+        class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        placeholder="John Doe"
+        formControlName="fullName"
+      />
+      <p *ngIf="contactForm.get('fullName')?.touched && contactForm.get('fullName')?.invalid" class="text-red-500 text-sm mt-1">
+        Full name is required.
+      </p>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="email" class="block text-gray-700 font-medium">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        placeholder="youremail@example.com"
+        formControlName="email"
+      />
+      <p *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['required']" class="text-red-500 text-sm mt-1">
+        Email is required.
+      </p>
+      <p *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['email']" class="text-red-500 text-sm mt-1">
+        Enter a valid email.
+      </p>
+    </div>
+
+    <!-- Message -->
+    <div>
+      <label for="message" class="block text-gray-700 font-medium">Message</label>
+      <textarea
+        id="message"
+        class="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        rows="4"
+        placeholder="Write your message here..."
+        formControlName="message"
+      ></textarea>
+      <p *ngIf="contactForm.get('message')?.touched && contactForm.get('message')?.invalid" class="text-red-500 text-sm mt-1">
+        Message is required.
+      </p>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mt-6">
+      <button
+        type="submit"
+        class="w-full bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600 transition"
+        [disabled]="contactForm.invalid"
+      >
+        Send Message
+      </button>
+    </div>
+  </form>
+</div>

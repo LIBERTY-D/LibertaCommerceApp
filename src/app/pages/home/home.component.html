@@ -1,0 +1,51 @@
+<section class="flex flex-col">
+  <app-search-bar *ngIf="products.length" (searchProductChange)="onSearchProductChange($event)"></app-search-bar>
+
+  <div class="mt-5 flex items-center justify-center flex-wrap m-auto space-x-5 space-y-5">
+
+    <!-- 🔎 Case 1: User is searching or filtering -->
+    <ng-container *ngIf="searchText || queryValue">
+      <ng-container *ngIf="filteredProduct.length > 0; else noFilteredResults">
+        @for (product of filteredProduct; track $index) {
+          <app-product-card
+            [goToDetailsPage]="goToDetailsPage"
+            [product]="product"
+            [addProductToCart]="addProductToCart"
+          ></app-product-card>
+        }
+      </ng-container>
+    </ng-container>
+
+    <!-- 📦 Case 2: No search/filter - show all products -->
+    <ng-container *ngIf="!searchText && !queryValue">
+      <ng-container *ngIf="products.length > 0; else noProductsFound">
+        @for (product of products; track $index) {
+          <app-product-card
+            [goToDetailsPage]="goToDetailsPage"
+            [product]="product"
+            [addProductToCart]="addProductToCart"
+          ></app-product-card>
+        }
+      </ng-container>
+    </ng-container>
+
+  </div>
+
+  <!-- ❌ No products at all -->
+  <ng-template #noProductsFound>
+    <div class="text-center text-gray-500 text-xl mt-10">
+      🚫 No products available. Please check back later.
+    </div>
+  </ng-template>
+
+  <!-- ❌ No search/filter matches -->
+  <ng-template #noFilteredResults>
+    <div class="text-center text-gray-500 text-xl mt-10">
+      🔍 No matching products found. Try adjusting your search or filters.
+    </div>
+  </ng-template>
+
+  <div id="reviews" class="bg-gray-50 py-10">
+    <app-reviews></app-reviews>
+  </div>
+</section>
