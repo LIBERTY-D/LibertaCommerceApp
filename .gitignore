@@ -52,9 +52,10 @@ Thumbs.db
 .settings/
 *.sublime-workspace
 
-# ========================
+
 # Environment Files (Keep dev only)
 # ========================
 src/environments/*
 !src/environments/
 !src/environments/environment.development.ts
+!src/environments/environment.ts
