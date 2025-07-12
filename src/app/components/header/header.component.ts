@@ -60,6 +60,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       next: (data: LoginResponse) => {
         this.toastService.showToast(data.message, 'success');
         this.localStorageService.setAuth(environment.LIBERTA_AUTH_KEY, data);
+        this.authService.loadUserFromToken();
+
         this.router.navigate(['/']);
       },
       error: (err) => {
