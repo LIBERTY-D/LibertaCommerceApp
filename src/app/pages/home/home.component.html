@@ -1,6 +1,8 @@
+
+
 <section class="flex flex-col">
   <app-search-bar *ngIf="products.length" (searchProductChange)="onSearchProductChange($event)"></app-search-bar>
-
+   <app-loader *ngIf="isLoading"/>
   <div class="mt-5 flex items-center justify-center flex-wrap m-auto space-x-5 space-y-5">
 
     <!-- 🔎 Case 1: User is searching or filtering -->
@@ -17,7 +19,7 @@
     </ng-container>
 
     <!-- 📦 Case 2: No search/filter - show all products -->
-    <ng-container *ngIf="!searchText && !queryValue">
+    <ng-container *ngIf="!searchText && !queryValue &&!isLoading">
       <ng-container *ngIf="products.length > 0; else noProductsFound">
         @for (product of products; track $index) {
           <app-product-card

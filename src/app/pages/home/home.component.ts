@@ -15,6 +15,7 @@ import { CartService } from '../../services/cart.service';
 import { Product } from '../../types/product.type';
 import { ProductService } from '../../services/product.service';
 import { AuthService } from '../../services/auth-service.service';
+import { LoaderComponent } from '../../components/loader/loader.component';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ import { AuthService } from '../../services/auth-service.service';
     SearchBarComponent,
     ProductCardComponent,
     ReviewsComponent,
+    LoaderComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -34,6 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   products: Product[] = [];
   filteredProduct: Product[] = [];
   private fragmentSubscription!: Subscription;
+  isLoading: boolean =true;
 
   constructor(
     private router: Router,
@@ -95,6 +98,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.productService.getAllProducts().subscribe({
       next: (products) => {
         this.products = products.data;
+        this.isLoading= false
       },
       error: (err) => {
         // console.log(err);
