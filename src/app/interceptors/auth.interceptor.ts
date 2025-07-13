@@ -50,9 +50,9 @@ export const bearerTokenInterceptor: HttpInterceptorFn = (
             return next(retryReq);
           }),
           catchError((refreshError) => {
-            if (refreshError.status === 401) {
-              authService.logout();
-            }
+            // if (refreshError.status === 401) {
+            authService.logout();
+            // }
             return throwError(() => refreshError);
           })
         );
